@@ -4,12 +4,18 @@ import { StreamChat } from 'stream-chat';
 import { Chat } from 'stream-chat-react';
 import Cookies from 'universal-cookie';
 
-const apiKey ="egp5drfwjm2x"
+import { ChannelListContainer, ChannelContainer  } from './components';
+
+const apiKey ="egp5drfwjm2x";
+const client = StreamChat.getInstance(apiKey);
 
 function App() {
   return (
     <div className="app__wrapper">
-      <p>Hello World</p>
+      <Chat client={client} theme='team light'>
+        <ChannelListContainer />
+        <ChannelContainer />
+      </Chat>
     </div>
   );
 }
