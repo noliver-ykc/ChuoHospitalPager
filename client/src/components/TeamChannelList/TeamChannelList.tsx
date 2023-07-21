@@ -1,7 +1,14 @@
 import React from 'react';
 import { AddChannel } from '../../assets';
 
-const TeamChannelList = ({children, error = false, loading, type}) => {
+type TeamChannelListProps = {
+  children: React.ReactNode;
+  error?: boolean;
+  loading: boolean;
+  type: string;
+};
+
+const TeamChannelList: React.FC<TeamChannelListProps> = ({ children, error = false, loading, type }) => {
 
     if(error){
         return type === 'team' ? (
@@ -20,7 +27,7 @@ const TeamChannelList = ({children, error = false, loading, type}) => {
                     { type === 'team' ? 'Channels' : 'Messages'} loading...
                 </p>
             </div>
-        ) : null 
+        ) : null
     }
 
     return (
