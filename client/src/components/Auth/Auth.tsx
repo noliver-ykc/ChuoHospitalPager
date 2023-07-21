@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, FormEvent } from 'react'
 import Cookies from 'universal-cookie'
 import { Axios } from 'axios';
 // @ts-ignore
@@ -10,7 +10,7 @@ const initialState = {
     password: '',
     confirmPassword: '',
     phoneNumber: '',
-    avatar: '',
+    avatarURL: '',
 
 }
 const Auth = () => {
@@ -20,15 +20,15 @@ const Auth = () => {
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setForm({ ...form, [e.target.name]: e.target.value });
-        console.log(e)
+        //console.log(form)
     };
-      
+
 
     const switchMode = () => {
         setIsSignup((prevIsSignup) => !prevIsSignup)
     }
 
-    const handleSubmit = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(form)
     }
@@ -39,7 +39,7 @@ const Auth = () => {
             <div className="auth__form-container_fields-content">
                 {/* remeber this react ternary operator nicole */}
                 <p>{isSignup ? 'Sign Up' : 'Sign In'}</p>
-                <form onSubmit={(handleSubmit) => {}}>
+                <form onSubmit={handleSubmit}>
                     {isSignup && (
                         <div className="auth__form-container_fields-content_input">
                             <label htmlFor='fullName'>Full Name</label>

@@ -33,12 +33,12 @@ const ChannelSearch = () => {
                 <div className="channel-search__input__icon">
                     <SearchIcon/>
                 </div>
-                <input 
-                    className="channel-search__input__text" 
-                    placeholder='Search' 
-                    type='text' 
-                    value={query} 
-                    onChange={onSearch} 
+                <input
+                    className="channel-search__input__text"
+                    placeholder='Search'
+                    type='text'
+                    value={query}
+                    onChange={onSearch}
                 />
             </div>
         </div>
