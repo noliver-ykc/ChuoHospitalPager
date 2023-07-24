@@ -1,8 +1,10 @@
 import React, { useState, FormEvent } from 'react'
 import Cookies from 'universal-cookie'
-import { Axios } from 'axios';
+import axios from 'axios';
 // @ts-ignore
 import signinImage from "../../assets/signup.jpg";
+
+const cookies = new Cookies();
 
 const initialState = {
     fullName: '',
@@ -25,12 +27,31 @@ const Auth = () => {
 
 
     const switchMode = () => {
-        setIsSignup((prevIsSignup) => !prevIsSignup)
-    }
+      setIsSignup((prevIsSignup) => !prevIsSignup)
+  }
 
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        //stops page refreshing
         e.preventDefault();
-        console.log(form)
+        const { fullName, username, password, phoneNumber, avatarURL } = form;
+        const URL = "http://localhost:4000/auth";
+        const { data: { token,userId, hashedPassword } } = await axios.post(`${URL}/${isSignup ? 'signup' : 'login'}`, {
+          username, password, fullName, phoneNumber, avatarURL,
+        })
+        //set log in cookies
+        cookies.set('token', token);
+        cookies.set('username', username);
+        cookies.set('fullName', fullName);
+        cookies.set('userId', userId);
+        // set sign up cookies
+        if(isSignup){
+          cookies.set('phoneNumber', phoneNumber);
+          cookies.set('avatarURL', avatarURL);
+          cookies.set('hashedPassword', hashedPassword);
+        }
+        //refresh to dir to chat as logged in user
+        window.location.reload();
+
     }
 
     return (
